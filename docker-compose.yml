@@ -5,10 +5,6 @@ services:
     ports:
       - 5173:5173
     container_name: portal-web-institucional
-    deploy:
-      replicas: 3 # Number of replicas
-      restart_policy:
-        condition: on-failure
   internet-banking:
     build: ./internet-banking
     ports:
@@ -23,17 +19,9 @@ services:
     ports:
       - 5432:5432
     container_name: bank-database
-    deploy:
-      replicas: 2 # Number of replicas
-      restart_policy:
-        condition: on-failure
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: dba_password
       POSTGRES_DB: bank
     volumes:
       - ./scripts:/docker-entrypoint-initdb.d
-
-networks:
-  default:
-    driver: overlay
